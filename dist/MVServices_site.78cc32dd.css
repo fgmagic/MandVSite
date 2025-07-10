@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #222;
+  background-color: #f9f9f9;
+  font-family: Segoe UI, sans-serif;
+  line-height: 1.6;
+}
+
+.navbar {
+  z-index: 1000;
+  background-color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 4px #0000000d;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: #333;
+  margin-left: 20px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #0073e6;
+}
+
+.hero {
+  text-align: center;
+  background: linear-gradient(#f0f8ff, #fff);
+  padding: 100px 10%;
+}
+
+.hero h1 {
+  margin-bottom: 20px;
+  font-size: 48px;
+}
+
+.hero p {
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.cta-button {
+  color: #fff;
+  background-color: #0073e6;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background .3s;
+}
+
+.cta-button:hover {
+  background-color: #005bb5;
+}
+
+.footer {
+  text-align: center;
+  color: #555;
+  background-color: #eee;
+  padding: 30px 10%;
+  font-size: 14px;
+}
+/*# sourceMappingURL=MVServices_site.78cc32dd.css.map */
