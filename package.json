@@ -10,6 +10,7 @@
     "start": "parcel index.html"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "parcel": "^2.15.4"
   }
 }

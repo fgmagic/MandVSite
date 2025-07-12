@@ -1,0 +1,11 @@
+const EMAILJS_PUBLIC_KEY = "PTPakowhtLo3HLhA_";
+const EMAILJS_SERVICE_ID = "service_nlrf8cd";
+const EMAILJS_TEMPLATE_ID_REQUEST = "template_0mkryfd";
+const EMAILJS_TEMPLATE_ID_AUTOREP = "template_nhrkgx9";
+
+export {
+  EMAILJS_PUBLIC_KEY,
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID_REQUEST,
+  EMAILJS_TEMPLATE_ID_AUTOREP,
+};
