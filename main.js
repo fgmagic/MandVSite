@@ -7,6 +7,7 @@ const indexButton = document.querySelector(".links--index");
 const servicesButton = document.querySelector(".links--services");
 const referenceButton = document.querySelector(".links--reference");
 const contactButton = document.querySelector(".links--contact");
+const logoButton = document.querySelector(".logo");
 
 const mainSection = document.querySelector(".hero");
 
@@ -18,13 +19,15 @@ const insertHtml = function (section, htmlText) {
   section.insertAdjacentHTML("beforeend", htmlText);
 };
 
-indexButton.addEventListener("click", function () {
+const loadIndexPage = function () {
   removeHtml(mainSection);
   const htmlText = `<h1>Üdvözlünk a weboldaladon!</h1>
-      <p>Segítünk kiemelkedni a digitális térben.</p>
-      <a href="#kapcsolat" class="cta-button">Lépj velünk kapcsolatba</a>;`;
+      <p>Segítünk kiemelkedni a digitális térben.</p>`;
   insertHtml(mainSection, htmlText);
-});
+};
+
+indexButton.addEventListener("click", loadIndexPage);
+logoButton.addEventListener("click", loadIndexPage);
 
 servicesButton.addEventListener("click", function () {
   removeHtml(mainSection);

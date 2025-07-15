@@ -674,6 +674,7 @@ const indexButton = document.querySelector(".links--index");
 const servicesButton = document.querySelector(".links--services");
 const referenceButton = document.querySelector(".links--reference");
 const contactButton = document.querySelector(".links--contact");
+const logoButton = document.querySelector(".logo");
 const mainSection = document.querySelector(".hero");
 const removeHtml = function(section) {
     section.innerHTML = "";
@@ -681,13 +682,14 @@ const removeHtml = function(section) {
 const insertHtml = function(section, htmlText) {
     section.insertAdjacentHTML("beforeend", htmlText);
 };
-indexButton.addEventListener("click", function() {
+const loadIndexPage = function() {
     removeHtml(mainSection);
     const htmlText = `<h1>\xdcdv\xf6zl\xfcnk a weboldaladon!</h1>
-      <p>Seg\xedt\xfcnk kiemelkedni a digit\xe1lis t\xe9rben.</p>
-      <a href="#kapcsolat" class="cta-button">L\xe9pj vel\xfcnk kapcsolatba</a>;`;
+      <p>Seg\xedt\xfcnk kiemelkedni a digit\xe1lis t\xe9rben.</p>`;
     insertHtml(mainSection, htmlText);
-});
+};
+indexButton.addEventListener("click", loadIndexPage);
+logoButton.addEventListener("click", loadIndexPage);
 servicesButton.addEventListener("click", function() {
     removeHtml(mainSection);
     const htmlText = `Services`;

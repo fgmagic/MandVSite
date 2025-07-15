@@ -22,9 +22,8 @@ body {
   box-shadow: 0 2px 4px #0000000d;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
+.nav-links {
+  margin-right: 100px;
 }
 
 .nav-links a {
@@ -43,7 +42,7 @@ body {
   background: linear-gradient(#f0f8ff, #fff);
   flex-direction: column;
   justify-content: center;
-  min-height: 70vh;
+  min-height: 75vh;
   display: flex;
 }
 
@@ -87,8 +86,8 @@ body {
 }
 
 .logo img {
-  height: 150px;
-  margin-right: 100px;
+  height: 100px;
+  margin-right: 10px;
 }
 
 .container {
