@@ -138,4 +138,66 @@ button:hover {
   text-align: center;
   margin-top: 15px;
 }
+
+.websitelist-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.accordion {
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: all .3s;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+.accordion-header {
+  cursor: pointer;
+  background-color: #e9edf1;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color .3s;
+  display: flex;
+}
+
+.accordion-header:hover {
+  background-color: #dce3ea;
+}
+
+.accordion-body {
+  background-color: #fff;
+  max-height: 0;
+  padding: 0 1.5rem;
+  transition: max-height .4s;
+  overflow: hidden;
+}
+
+.accordion-body.open {
+  padding: 1rem 1.5rem;
+}
+
+.accordion-body p {
+  color: #444;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.icon {
+  transition: transform .3s;
+}
+
+.accordion.open .icon {
+  transform: rotate(90deg);
+}
 /*# sourceMappingURL=MVServices_site.78cc32dd.css.map */

@@ -731,6 +731,155 @@ contactButton.addEventListener("click", function() {
       </div>`;
     insertHtml(mainSection, htmlText);
 });
+servicesButton.addEventListener("click", function() {
+    removeHtml(mainSection);
+    const htmlText = `<div class="websitelist-container">
+        <h2>Webfejleszt\xe9si Szolg\xe1ltat\xe1saink</h2>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Statikus weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Gyors bet\xf6lt\xe9s\u{171}, k\xf6lts\xe9ghat\xe9kony megold\xe1s kisv\xe1llalkoz\xe1soknak vagy
+              kamp\xe1nyoldalakhoz. Ide\xe1lis v\xe1laszt\xe1s, ha nincs sz\xfcks\xe9g gyakori
+              tartalomfriss\xedt\xe9sre.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Dinamikus weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Tartalomkezel\u{151} rendszerrel (CMS) ell\xe1tott, k\xf6nnyen friss\xedthet\u{151}
+              weboldalak. Alkalmas blogok, h\xedroldalak, v\xe1llalati port\xe1lok
+              kialak\xedt\xe1s\xe1ra.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            E-kereskedelmi rendszerek (webshopok) <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Teljes funkcionalit\xe1s\xfa online \xe1ruh\xe1zak egyedi vagy szabv\xe1nyos
+              platformokra \xe9p\xedtve (pl. Shopify, WooCommerce, Magento).
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            \xdczleti webport\xe1lok <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Szem\xe9lyre szabott megold\xe1sok c\xe9gek sz\xe1m\xe1ra \u{2013} \xfcgyf\xe9lkapuk, bels\u{151}
+              inform\xe1ci\xf3s rendszerek, partnereknek sz\xf3l\xf3 fel\xfcletek kialak\xedt\xe1sa.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Reszponz\xedv weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Minden eszk\xf6zre (mobil, tablet, asztali g\xe9p) optimaliz\xe1lt
+              felhaszn\xe1l\xf3i \xe9lm\xe9ny, modern diz\xe1jnnal \xe9s letisztult fel\xe9p\xedt\xe9ssel.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Webes alkalmaz\xe1sok (Web Apps) <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Interakt\xedv, funkci\xf3kban gazdag alkalmaz\xe1sok fejleszt\xe9se \xfczleti
+              vagy egyedi ig\xe9nyekre \u{2013} p\xe9ld\xe1ul id\u{151}pontfoglal\xf3, kalkul\xe1tor,
+              CRM-fel\xfclet.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            SAP UI5 / Fiori applik\xe1ci\xf3k <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              V\xe1llalati szint\u{171} \xfczleti alkalmaz\xe1sok fejleszt\xe9se az SAP
+              \xf6kosziszt\xe9m\xe1ban. Modern, reszponz\xedv felhaszn\xe1l\xf3i fel\xfcletek SAP
+              rendszerekhez.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Egyedi szoftvermegold\xe1sok <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Teljesen testreszabott fejleszt\xe9sek \u{2013} az \xf6tlett\u{151}l a
+              megval\xf3s\xedt\xe1sig. Ide\xe1lis k\xfcl\xf6nleges \xfczleti folyamatok
+              digitaliz\xe1l\xe1s\xe1ra.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Landing oldalak \xe9s kamp\xe1nyfel\xfcletek <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Konverzi\xf3ra optimaliz\xe1lt oldalak marketingkamp\xe1nyokhoz,
+              esem\xe9nyekhez vagy term\xe9kbevezet\xe9sekhez.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Weboldal \xfajratervez\xe9s \xe9s moderniz\xe1l\xe1s <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Megl\xe9v\u{151} oldalak teljes \xe1talak\xedt\xe1sa technikai \xe9s vizu\xe1lis
+              szempontb\xf3l, naprak\xe9sz trendekhez \xe9s eszk\xf6z\xf6kh\xf6z igaz\xedtva.
+            </p>
+          </div>
+        </div>
+      </div>`;
+    insertHtml(mainSection, htmlText);
+    // Now that accordion HTML is in the DOM, select and initialize them
+    const accordions = document.querySelectorAll(".accordion");
+    accordions.forEach((acc)=>{
+        const header = acc.querySelector(".accordion-header");
+        const body = acc.querySelector(".accordion-body");
+        header.addEventListener("click", ()=>{
+            const isOpen = acc.classList.contains("open");
+            accordions.forEach((a)=>{
+                a.classList.remove("open");
+                a.querySelector(".accordion-body").style.maxHeight = null;
+            });
+            if (!isOpen) {
+                acc.classList.add("open");
+                body.style.maxHeight = body.scrollHeight + "px";
+            }
+        });
+    });
+});
 (function() {
     _browser.init({
         publicKey: _defaultsJs.EMAILJS_PUBLIC_KEY
