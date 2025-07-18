@@ -672,16 +672,50 @@ var _referenceViewJs = require("./view/referenceView.js");
 var _indexViewJs = require("./view/indexView.js");
 var _contactViewJs = require("./view/contactView.js");
 var _serviceViewJs = require("./view/serviceView.js");
+var _browser = require("@emailjs/browser");
+var _defaultsJs = require("./defaults.js");
 "use strict";
 _selectorJs.indexButton.addEventListener("click", (0, _indexViewJs.loadIndexPage));
 _selectorJs.logoButton.addEventListener("click", (0, _indexViewJs.loadIndexPage));
 _selectorJs.referenceButton.addEventListener("click", (0, _referenceViewJs.loadReferencePage));
 _selectorJs.contactButton.addEventListener("click", (0, _contactViewJs.loadContactPage));
-(0, _contactViewJs.emailJSInit)();
-_selectorJs.mainSection.addEventListener("submit", (0, _contactViewJs.sendEmail));
 _selectorJs.servicesButton.addEventListener("click", (0, _serviceViewJs.loadServicesPage));
+const emailJSInit = function() {
+    _browser.init({
+        publicKey: _defaultsJs.EMAILJS_PUBLIC_KEY
+    });
+};
+emailJSInit();
+const sendEmail = function(e) {
+    if (e.target && e.target.id === "contactForm") {
+        e.preventDefault();
+        const { type, name, email, subject, message } = Object.fromEntries(new FormData(e.target));
+        _browser.send(_defaultsJs.EMAILJS_SERVICE_ID, _defaultsJs.EMAILJS_TEMPLATE_ID_REQUEST, {
+            type,
+            name,
+            email,
+            subject,
+            message
+        }).then(()=>{
+            document.getElementById("status").textContent = "\xdczenet sikeresen elk\xfcldve! 24 \xf3r\xe1n bel\xfcl felvessz\xfck \xd6nnel a kapcsolatot.";
+            e.target.reset();
+            _browser.send(_defaultsJs.EMAILJS_SERVICE_ID, _defaultsJs.EMAILJS_TEMPLATE_ID_AUTOREP, {
+                name,
+                email,
+                subject
+            }).then(()=>{
+                console.log("Autoreply sent successfully.");
+            }, (error)=>{
+                console.error("Autoreply failed:", error);
+            });
+        }, (error)=>{
+            document.getElementById("status").textContent = "Hiba t\xf6rt\xe9nt az \xfczenet k\xfcld\xe9se k\xf6zben: " + error.text;
+        });
+    }
+};
+_selectorJs.mainSection.addEventListener("submit", sendEmail);
 
-},{"./view/indexView.js":"2oO2V","./selector.js":"66Kzy","./view/referenceView.js":"g1On8","./view/contactView.js":"3BNLn","./view/serviceView.js":"cK0Eo"}],"2oO2V":[function(require,module,exports,__globalThis) {
+},{"./view/indexView.js":"2oO2V","./selector.js":"66Kzy","./view/referenceView.js":"g1On8","./view/contactView.js":"3BNLn","./view/serviceView.js":"cK0Eo","@emailjs/browser":"a603P","./defaults.js":"eJcly"}],"2oO2V":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "loadIndexPage", ()=>loadIndexPage);
@@ -818,11 +852,7 @@ const loadReferencePage = function() {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "loadContactPage", ()=>loadContactPage);
-parcelHelpers.export(exports, "emailJSInit", ()=>emailJSInit);
-parcelHelpers.export(exports, "sendEmail", ()=>sendEmail);
 var _helpersJs = require("../helpers.js");
-var _browser = require("@emailjs/browser");
-var _defaultsJs = require("../defaults.js");
 var _selectorJs = require("../selector.js");
 const loadContactPage = function() {
     (0, _helpersJs.removeHtml)(_selectorJs.mainSection);
@@ -855,40 +885,164 @@ const loadContactPage = function() {
           </div>`;
     (0, _helpersJs.insertHtml)(_selectorJs.mainSection, htmlText);
 };
-const emailJSInit = function() {
-    _browser.init({
-        publicKey: _defaultsJs.EMAILJS_PUBLIC_KEY
+
+},{"../helpers.js":"3MlDw","../selector.js":"66Kzy","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"cK0Eo":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "loadServicesPage", ()=>loadServicesPage);
+var _helpersJs = require("../helpers.js");
+var _selectorJs = require("../selector.js");
+const loadServicesPage = function() {
+    (0, _helpersJs.removeHtml)(_selectorJs.mainSection);
+    const htmlText = `<div class="websitelist-container">
+        <h2>Webfejleszt\xe9si Szolg\xe1ltat\xe1saink</h2>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Statikus weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Gyors bet\xf6lt\xe9s\u{171}, k\xf6lts\xe9ghat\xe9kony megold\xe1s kisv\xe1llalkoz\xe1soknak vagy
+              kamp\xe1nyoldalakhoz. Ide\xe1lis v\xe1laszt\xe1s, ha nincs sz\xfcks\xe9g gyakori
+              tartalomfriss\xedt\xe9sre.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Dinamikus weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Tartalomkezel\u{151} rendszerrel (CMS) ell\xe1tott, k\xf6nnyen friss\xedthet\u{151}
+              weboldalak. Alkalmas blogok, h\xedroldalak, v\xe1llalati port\xe1lok
+              kialak\xedt\xe1s\xe1ra.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            E-kereskedelmi rendszerek (webshopok) <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Teljes funkcionalit\xe1s\xfa online \xe1ruh\xe1zak egyedi vagy szabv\xe1nyos
+              platformokra \xe9p\xedtve (pl. Shopify, WooCommerce, Magento).
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            \xdczleti webport\xe1lok <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Szem\xe9lyre szabott megold\xe1sok c\xe9gek sz\xe1m\xe1ra \u{2013} \xfcgyf\xe9lkapuk, bels\u{151}
+              inform\xe1ci\xf3s rendszerek, partnereknek sz\xf3l\xf3 fel\xfcletek kialak\xedt\xe1sa.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Reszponz\xedv weboldalak <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Minden eszk\xf6zre (mobil, tablet, asztali g\xe9p) optimaliz\xe1lt
+              felhaszn\xe1l\xf3i \xe9lm\xe9ny, modern diz\xe1jnnal \xe9s letisztult fel\xe9p\xedt\xe9ssel.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Webes alkalmaz\xe1sok (Web Apps) <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Interakt\xedv, funkci\xf3kban gazdag alkalmaz\xe1sok fejleszt\xe9se \xfczleti
+              vagy egyedi ig\xe9nyekre \u{2013} p\xe9ld\xe1ul id\u{151}pontfoglal\xf3, kalkul\xe1tor,
+              CRM-fel\xfclet.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            SAP UI5 / Fiori applik\xe1ci\xf3k <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              V\xe1llalati szint\u{171} \xfczleti alkalmaz\xe1sok fejleszt\xe9se az SAP
+              \xf6kosziszt\xe9m\xe1ban. Modern, reszponz\xedv felhaszn\xe1l\xf3i fel\xfcletek SAP
+              rendszerekhez.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Egyedi szoftvermegold\xe1sok <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Teljesen testreszabott fejleszt\xe9sek \u{2013} az \xf6tlett\u{151}l a
+              megval\xf3s\xedt\xe1sig. Ide\xe1lis k\xfcl\xf6nleges \xfczleti folyamatok
+              digitaliz\xe1l\xe1s\xe1ra.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Landing oldalak \xe9s kamp\xe1nyfel\xfcletek <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Konverzi\xf3ra optimaliz\xe1lt oldalak marketingkamp\xe1nyokhoz,
+              esem\xe9nyekhez vagy term\xe9kbevezet\xe9sekhez.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header">
+            Weboldal \xfajratervez\xe9s \xe9s moderniz\xe1l\xe1s <span class="icon">\u{25B6}</span>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Megl\xe9v\u{151} oldalak teljes \xe1talak\xedt\xe1sa technikai \xe9s vizu\xe1lis
+              szempontb\xf3l, naprak\xe9sz trendekhez \xe9s eszk\xf6z\xf6kh\xf6z igaz\xedtva.
+            </p>
+          </div>
+        </div>
+      </div>`;
+    (0, _helpersJs.insertHtml)(_selectorJs.mainSection, htmlText);
+    // Now that accordion HTML is in the DOM, select and initialize them
+    const accordions = document.querySelectorAll(".accordion");
+    accordions.forEach((acc)=>{
+        const header = acc.querySelector(".accordion-header");
+        const body = acc.querySelector(".accordion-body");
+        header.addEventListener("click", ()=>{
+            const isOpen = acc.classList.contains("open");
+            accordions.forEach((a)=>{
+                a.classList.remove("open");
+                a.querySelector(".accordion-body").style.maxHeight = null;
+            });
+            if (!isOpen) {
+                acc.classList.add("open");
+                body.style.maxHeight = body.scrollHeight + "px";
+            }
+        });
     });
 };
-const sendEmail = function(e) {
-    if (e.target && e.target.id === "contactForm") {
-        e.preventDefault();
-        const { type, name, email, subject, message } = Object.fromEntries(new FormData(e.target));
-        _browser.send(_defaultsJs.EMAILJS_SERVICE_ID, _defaultsJs.EMAILJS_TEMPLATE_ID_REQUEST, {
-            type,
-            name,
-            email,
-            subject,
-            message
-        }).then(()=>{
-            document.getElementById("status").textContent = "\xdczenet sikeresen elk\xfcldve! 24 \xf3r\xe1n bel\xfcl felvessz\xfck \xd6nnel a kapcsolatot.";
-            e.target.reset();
-            _browser.send(_defaultsJs.EMAILJS_SERVICE_ID, _defaultsJs.EMAILJS_TEMPLATE_ID_AUTOREP, {
-                name,
-                email,
-                subject
-            }).then(()=>{
-                console.log("Autoreply sent successfully.");
-            }, (error)=>{
-                console.error("Autoreply failed:", error);
-            });
-        }, (error)=>{
-            document.getElementById("status").textContent = "Hiba t\xf6rt\xe9nt az \xfczenet k\xfcld\xe9se k\xf6zben: " + error.text;
-        });
-    }
-};
 
-},{"../helpers.js":"3MlDw","@emailjs/browser":"a603P","../defaults.js":"eJcly","../selector.js":"66Kzy","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"a603P":[function(require,module,exports,__globalThis) {
+},{"../helpers.js":"3MlDw","../selector.js":"66Kzy","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"a603P":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "init", ()=>(0, _init.init));
@@ -1211,162 +1365,6 @@ const EMAILJS_SERVICE_ID = "service_nlrf8cd";
 const EMAILJS_TEMPLATE_ID_REQUEST = "template_0mkryfd";
 const EMAILJS_TEMPLATE_ID_AUTOREP = "template_nhrkgx9";
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"cK0Eo":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "loadServicesPage", ()=>loadServicesPage);
-var _helpersJs = require("../helpers.js");
-var _selectorJs = require("../selector.js");
-const loadServicesPage = function() {
-    (0, _helpersJs.removeHtml)(_selectorJs.mainSection);
-    const htmlText = `<div class="websitelist-container">
-        <h2>Webfejleszt\xe9si Szolg\xe1ltat\xe1saink</h2>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Statikus weboldalak <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Gyors bet\xf6lt\xe9s\u{171}, k\xf6lts\xe9ghat\xe9kony megold\xe1s kisv\xe1llalkoz\xe1soknak vagy
-              kamp\xe1nyoldalakhoz. Ide\xe1lis v\xe1laszt\xe1s, ha nincs sz\xfcks\xe9g gyakori
-              tartalomfriss\xedt\xe9sre.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Dinamikus weboldalak <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Tartalomkezel\u{151} rendszerrel (CMS) ell\xe1tott, k\xf6nnyen friss\xedthet\u{151}
-              weboldalak. Alkalmas blogok, h\xedroldalak, v\xe1llalati port\xe1lok
-              kialak\xedt\xe1s\xe1ra.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            E-kereskedelmi rendszerek (webshopok) <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Teljes funkcionalit\xe1s\xfa online \xe1ruh\xe1zak egyedi vagy szabv\xe1nyos
-              platformokra \xe9p\xedtve (pl. Shopify, WooCommerce, Magento).
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            \xdczleti webport\xe1lok <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Szem\xe9lyre szabott megold\xe1sok c\xe9gek sz\xe1m\xe1ra \u{2013} \xfcgyf\xe9lkapuk, bels\u{151}
-              inform\xe1ci\xf3s rendszerek, partnereknek sz\xf3l\xf3 fel\xfcletek kialak\xedt\xe1sa.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Reszponz\xedv weboldalak <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Minden eszk\xf6zre (mobil, tablet, asztali g\xe9p) optimaliz\xe1lt
-              felhaszn\xe1l\xf3i \xe9lm\xe9ny, modern diz\xe1jnnal \xe9s letisztult fel\xe9p\xedt\xe9ssel.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Webes alkalmaz\xe1sok (Web Apps) <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Interakt\xedv, funkci\xf3kban gazdag alkalmaz\xe1sok fejleszt\xe9se \xfczleti
-              vagy egyedi ig\xe9nyekre \u{2013} p\xe9ld\xe1ul id\u{151}pontfoglal\xf3, kalkul\xe1tor,
-              CRM-fel\xfclet.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            SAP UI5 / Fiori applik\xe1ci\xf3k <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              V\xe1llalati szint\u{171} \xfczleti alkalmaz\xe1sok fejleszt\xe9se az SAP
-              \xf6kosziszt\xe9m\xe1ban. Modern, reszponz\xedv felhaszn\xe1l\xf3i fel\xfcletek SAP
-              rendszerekhez.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Egyedi szoftvermegold\xe1sok <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Teljesen testreszabott fejleszt\xe9sek \u{2013} az \xf6tlett\u{151}l a
-              megval\xf3s\xedt\xe1sig. Ide\xe1lis k\xfcl\xf6nleges \xfczleti folyamatok
-              digitaliz\xe1l\xe1s\xe1ra.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Landing oldalak \xe9s kamp\xe1nyfel\xfcletek <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Konverzi\xf3ra optimaliz\xe1lt oldalak marketingkamp\xe1nyokhoz,
-              esem\xe9nyekhez vagy term\xe9kbevezet\xe9sekhez.
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <div class="accordion-header">
-            Weboldal \xfajratervez\xe9s \xe9s moderniz\xe1l\xe1s <span class="icon">\u{25B6}</span>
-          </div>
-          <div class="accordion-body">
-            <p>
-              Megl\xe9v\u{151} oldalak teljes \xe1talak\xedt\xe1sa technikai \xe9s vizu\xe1lis
-              szempontb\xf3l, naprak\xe9sz trendekhez \xe9s eszk\xf6z\xf6kh\xf6z igaz\xedtva.
-            </p>
-          </div>
-        </div>
-      </div>`;
-    (0, _helpersJs.insertHtml)(_selectorJs.mainSection, htmlText);
-    // Now that accordion HTML is in the DOM, select and initialize them
-    const accordions = document.querySelectorAll(".accordion");
-    accordions.forEach((acc)=>{
-        const header = acc.querySelector(".accordion-header");
-        const body = acc.querySelector(".accordion-body");
-        header.addEventListener("click", ()=>{
-            const isOpen = acc.classList.contains("open");
-            accordions.forEach((a)=>{
-                a.classList.remove("open");
-                a.querySelector(".accordion-body").style.maxHeight = null;
-            });
-            if (!isOpen) {
-                acc.classList.add("open");
-                body.style.maxHeight = body.scrollHeight + "px";
-            }
-        });
-    });
-};
-
-},{"../helpers.js":"3MlDw","../selector.js":"66Kzy","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["1Pb9H","kuegG"], "kuegG", "parcelRequire1f5d", {})
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["1Pb9H","kuegG"], "kuegG", "parcelRequire1f5d", {})
 
 //# sourceMappingURL=MVServices_site.260c5ea5.js.map
